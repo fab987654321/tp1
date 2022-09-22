@@ -7,8 +7,6 @@ public class Main {
         String filename = "formulas/formula.txt";
         if (0 < args.length) {
             filename = args[0];
-        }else {
-            filename = "Vdefaut.txt";
         }
 
         Parser parser = new Parser();
