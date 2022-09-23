@@ -1,8 +1,11 @@
 import java.io.File;
 import java.io.Serial;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Parser {
 
@@ -27,28 +30,42 @@ public class Parser {
     }
 
     public Graph<String> parse(String filename){
-        int nbLigne = 0;
 
-        String ligne = "";
+        List<String> ligne = new ArrayList<String>();
 
         //Ouvrir le fichier formule-2-sat.txt
         Scanner fichier = openFile(filename);
 
         //Récupérer les données dans une variable
         while(fichier.hasNextLine()) {
-            ligne += fichier.nextLine() + "\n";
-            nbLigne++;
+            ligne.add(fichier.nextLine());
         }
 
         //Ferme le  fichier
         fichier.close();
 
+        int nbLignes = ligne.size();
+        List Asupprimer = new ArrayList();
+        String LigneParam = "/Na/";
+        int nbVariable = 0;
 
-        System.out.println(filename +":"+ nbLigne +"\n"+ligne);
+        Pattern pattern;
 
         //Parser les valeurs pour générer un obj de type Graph
+        for (int i = 0;i < nbLignes;i++) {
+            if(ligne.get(i).startsWith("c")) {
+                Asupprimer.add(i);
+            }
+            if(ligne.get(i).startsWith("p")){
+                Asupprimer.add(i);
+                LigneParam = ligne.get(i);
+                //Recup les deux int séparé
 
-        return new Graph<String>(nbLigne);
+            }
+        }
+        System.out.println(Asupprimer + "\n" + LigneParam);
+
+        return new Graph<String>(4);
     }
 
 }
