@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.File;
 import java.io.Serial;
 import java.lang.reflect.Array;
@@ -46,14 +47,14 @@ public class Parser {
         int nbLignes = ligne.size();//Pour le for
         int nbVariable = 0;
 
-        List Asupprimer = new ArrayList();
+        List<Integer> Asupprimer = new ArrayList<Integer>();
         String LigneParam = "/Na/";
 
         //Pour le graph
         int nb_literaux = 0;
         int nb_Clause = 0;
 
-        //Parser les valeurs pour générer un obj de type Graph
+        //Recupère le nombre de clauses et des literraux
         for (int i = 0;i < nbLignes;i++) {
             if(ligne.get(i).startsWith("c")) {
                 Asupprimer.add(i);
@@ -70,8 +71,36 @@ public class Parser {
 
         }
 
-        Graph<String> leGraph = new Graph<String>(nb_literaux);
+        //Supprimer les lignes
+        for (int a =Asupprimer.size() -1 ; a >= 0 ;a-- ){
+            System.out.println("----");
+            int b = Asupprimer.get(a);
+            ligne.remove(b);
+        }
 
+
+        //Transformer en implications
+        List<Integer> Implication = new ArrayList<Integer>();
+
+
+
+        //Génére le graph
+        Graph<String> leGraph = new Graph<String>(nb_literaux * 2);
+        int src = 0;
+        int dest = 0;
+        Label lab = new Label("Je suis là");
+        String rr = "";
+        //Itére pour remplir le graph
+        for (int x = 0 ; x < nb_Clause; x++){
+            src = Integer.parseInt(ligne.get(x).split(" ")[0]);
+            dest = Integer.parseInt((ligne.get(x).split(" ")[1]));
+        try {
+            leGraph.addArc(src,dest, rr);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        }
         return leGraph;
     }
 

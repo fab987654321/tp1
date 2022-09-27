@@ -11,6 +11,7 @@ public class Main {
 
         Parser parser = new Parser();
         Graph<String> graph = parser.parse(filename);
+        System.out.println(graph);
 
         Kosaraju k = new Kosaraju(graph);
         int[] composantes = k.sccs();
