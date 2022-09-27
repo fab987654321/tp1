@@ -9,9 +9,8 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
-    public Graph<String> parser(){
+    public  Parser(){
 
-        return new Graph<String>(1);
     }
 
     private Scanner openFile(String cheminFichier){
@@ -44,12 +43,15 @@ public class Parser {
         //Ferme le  fichier
         fichier.close();
 
-        int nbLignes = ligne.size();
-        List Asupprimer = new ArrayList();
-        String LigneParam = "/Na/";
+        int nbLignes = ligne.size();//Pour le for
         int nbVariable = 0;
 
-        Pattern pattern;
+        List Asupprimer = new ArrayList();
+        String LigneParam = "/Na/";
+
+        //Pour le graph
+        int nb_literaux = 0;
+        int nb_Clause = 0;
 
         //Parser les valeurs pour générer un obj de type Graph
         for (int i = 0;i < nbLignes;i++) {
@@ -59,13 +61,18 @@ public class Parser {
             if(ligne.get(i).startsWith("p")){
                 Asupprimer.add(i);
                 LigneParam = ligne.get(i);
+
                 //Recup les deux int séparé
-
+                String[] paramSplit = LigneParam.split(" ");
+                 nb_literaux = Integer.parseInt(paramSplit[2]);
+                 nb_Clause = Integer.parseInt(paramSplit[3]);
             }
-        }
-        System.out.println(Asupprimer + "\n" + LigneParam);
 
-        return new Graph<String>(4);
+        }
+
+        Graph<String> leGraph = new Graph<String>(nb_literaux);
+
+        return leGraph;
     }
 
 }
