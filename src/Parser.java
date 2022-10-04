@@ -88,17 +88,12 @@ public class Parser {
         Graph<String> leGraph = new Graph<String>(nb_literaux * 2);
         int src = 0;
         int dest = 0;
-        Label lab = new Label("Je suis là");
         String rr = "";
         //Itére pour remplir le graph
         for (int x = 0 ; x < nb_Clause; x++){
             src = Integer.parseInt(ligne.get(x).split(" ")[0]);
             dest = Integer.parseInt((ligne.get(x).split(" ")[1]));
-        try {
-            leGraph.addArc(src,dest, rr);
-        }catch(Exception e){
-            System.out.println(e);
-        }
+            leGraph.addClauses(src,dest, (String)(src + ">>" + dest));
 
         }
         return leGraph;

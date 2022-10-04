@@ -38,6 +38,19 @@ public class Graph<Label>  {
         incidency.get(source).addLast(new Edge(source,dest,label));
     }
 
+    //Pour générer les arc à partir d'une clause
+    public void addClauses(int src,int dest,Label label){
+       //TODO a vérifier
+
+        if (src < 0 ) src = src * -1 + cardinal/2;
+        if (dest < 0) dest = dest * -1 + cardinal/2;
+        try {
+            this.addArc(src,dest, label);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     public String toString() {
         String result = new String("");
         result = result.concat("Nombre sommets : " + cardinal + "\n");
@@ -55,5 +68,8 @@ public class Graph<Label>  {
         return result;
 	
     }
+
+
+
     
 }
