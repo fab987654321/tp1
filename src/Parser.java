@@ -31,71 +31,43 @@ public class Parser {
 
     public Graph<String> parse(String filename){
 
-        List<String> ligne = new ArrayList<String>();
-
         //Ouvrir le fichier formule-2-sat.txt
         Scanner fichier = openFile(filename);
 
-        //Récupérer les données dans une variable
-        while(fichier.hasNextLine()) {
-            ligne.add(fichier.nextLine());
-        }
-
-        //Ferme le  fichier
-        fichier.close();
-
-        int nbLignes = ligne.size();//Pour le for
-        int nbVariable = 0;
-
-        List<Integer> Asupprimer = new ArrayList<Integer>();
-        String LigneParam = "/Na/";
-
-        //Pour le graph
         int nb_literaux = 0;
         int nb_Clause = 0;
+        String ligne = "";
+        Graph<String> leGraph = null;
 
-        //Recupère le nombre de clauses et des literraux
-        for (int i = 0;i < nbLignes;i++) {
-            if(ligne.get(i).startsWith("c")) {
-                Asupprimer.add(i);
+
+        //Boucle sur les ligne du fichier
+        while(fichier.hasNextLine()) {
+            ligne = fichier.nextLine();
+
+            //Compare les début de ligne
+            if (ligne.startsWith("c")) {
             }
-            if(ligne.get(i).startsWith("p")){
-                Asupprimer.add(i);
-                LigneParam = ligne.get(i);
+            else if (ligne.startsWith("p")) {
 
                 //Recup les deux int séparé
-                String[] paramSplit = LigneParam.split(" ");
-                 nb_literaux = Integer.parseInt(paramSplit[2]);
-                 nb_Clause = Integer.parseInt(paramSplit[3]);
+                String[] paramSplit = ligne.split(" ");
+                nb_literaux = Integer.parseInt(paramSplit[2]);
+                nb_Clause = Integer.parseInt(paramSplit[3]);
+                //Génére le graph
+                leGraph = new Graph<String>(nb_Clause * 2);
+            } else {
+                //TODO Transformer en implications
+                String[] tLigne = ligne.split(" ");
+                leGraph.addClauses(Integer.parseInt(tLigne[0]),Integer.parseInt(tLigne[1]), (String)(tLigne[0] + ">>" + tLigne[1]));
+
             }
 
-        }
+        }//while
 
-        //Supprimer les lignes
-        for (int a =Asupprimer.size() -1 ; a >= 0 ;a-- ){
-            System.out.println("----");
-            int b = Asupprimer.get(a);
-            ligne.remove(b);
-        }
-
-
-        //Transformer en implications
-        List<Integer> Implication = new ArrayList<Integer>();
+        fichier.close();
 
 
 
-        //Génére le graph
-        Graph<String> leGraph = new Graph<String>(nb_literaux * 2);
-        int src = 0;
-        int dest = 0;
-        String rr = "";
-        //Itére pour remplir le graph
-        for (int x = 0 ; x < nb_Clause; x++){
-            src = Integer.parseInt(ligne.get(x).split(" ")[0]);
-            dest = Integer.parseInt((ligne.get(x).split(" ")[1]));
-            leGraph.addClauses(src,dest, (String)(src + ">>" + dest));
-
-        }
         return leGraph;
     }
 
