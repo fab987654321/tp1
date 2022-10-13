@@ -1,12 +1,5 @@
-import java.awt.*;
 import java.io.File;
-import java.io.Serial;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Parser {
 
@@ -34,9 +27,9 @@ public class Parser {
         //Ouvrir le fichier formule-2-sat.txt
         Scanner fichier = openFile(filename);
 
-        int nb_literaux = 0;
-        int nb_Clause = 0;
-        String ligne = "";
+        int nb_literaux;
+        int nb_Clause;
+        String ligne ;
         Graph<String> leGraph = null;
 
 
@@ -46,20 +39,22 @@ public class Parser {
 
             //Compare les début de ligne
             if (ligne.startsWith("c")) {
+                //Ne rien faire
             }
             else if (ligne.startsWith("p")) {
 
                 //Recup les deux int séparé
                 String[] paramSplit = ligne.split(" ");
+                /*TODO A conserver ?*/
                 nb_literaux = Integer.parseInt(paramSplit[2]);
                 nb_Clause = Integer.parseInt(paramSplit[3]);
+
                 //Génére le graph
                 leGraph = new Graph<String>(nb_Clause * 2);
             } else {
                 //TODO Transformer en implications
                 String[] tLigne = ligne.split(" ");
-                leGraph.addClauses(Integer.parseInt(tLigne[0]),Integer.parseInt(tLigne[1]), (String)(tLigne[0] + ">>" + tLigne[1]));
-
+                leGraph.addClauses(Integer.parseInt(tLigne[0]),Integer.parseInt(tLigne[1]), (tLigne[0] + ">>" + tLigne[1]));
             }
 
         }//while
