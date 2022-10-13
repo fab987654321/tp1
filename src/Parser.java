@@ -38,22 +38,23 @@ public class Parser {
             ligne = fichier.nextLine();
 
             //Compare les début de ligne
-            if (ligne.startsWith("c")) {
-                //Ne rien faire
-            }
-            else if (ligne.startsWith("p")) {
+
+            if (ligne.startsWith("p")) {
 
                 //Recup les deux int séparé
                 String[] paramSplit = ligne.split(" ");
-                /*TODO A conserver ?*/
                 nb_literaux = Integer.parseInt(paramSplit[2]);
                 nb_Clause = Integer.parseInt(paramSplit[3]);
 
                 //Génére le graph
                 leGraph = new Graph<String>(nb_Clause * 2);
-            } else {
+            }
+            //^[0-9\-]
+            else if(Character.isDigit(ligne.charAt(0)) | ligne.charAt(0) == '-'){
                 //TODO Transformer en implications
                 String[] tLigne = ligne.split(" ");
+
+                assert leGraph != null;
                 leGraph.addClauses(Integer.parseInt(tLigne[0]),Integer.parseInt(tLigne[1]), (tLigne[0] + ">>" + tLigne[1]));
             }
 
