@@ -37,9 +37,8 @@ public class Graph<Label>  {
 	}
         incidency.get(source).addLast(new Edge(source,dest,label));
     }
-
-    //Pour générer les arc à partir d'une clause
-    public void addClauses(int src,int dest,Label label){
+//Pour gérer les nombres négatifs
+    private void addClauses(int src,int dest,Label label){
        //TODO a vérifier
 
         if (src < 0 ) src = src * -1 + cardinal/2;
@@ -49,6 +48,33 @@ public class Graph<Label>  {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    //Pour générer les implication à partir d'une clause
+    public void addClauseArc(int l1, int l2,Label lab) {
+        try {
+            // P V Q : (nP => Q) et (nQ => P)
+            if(l1 > 0 && l2 > 0){
+                this.addClauses(-l1,l2,lab);
+                this.addClauses(-l2,l1,lab);
+            }
+            // nP V nQ : (P => nQ) et (Q => nP)
+            else if(l1 < 0 && l2 < 0){
+                this.addClauses(-l1,l2,lab);
+                this.addClauses(-l2,l1,lab);
+            }
+            // P V nQ : Q => P
+            else if(l1 > 0 && l2 < 0){
+                this.addClauses(-l2,l1,lab);
+            }
+            // nP V Q : P => Q
+            else if(l1 < 0 && l2 > 0){
+                this.addClauses(-l1,l2,lab);
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
     }
 
     public String toString() {

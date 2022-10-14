@@ -55,7 +55,7 @@ public class Parser {
                 String[] tLigne = ligne.split(" ");
 
                 assert leGraph != null;
-                leGraph.addClauses(Integer.parseInt(tLigne[0]),Integer.parseInt(tLigne[1]), (tLigne[0] + ">>" + tLigne[1]));
+                leGraph.addClauseArc(Integer.parseInt(tLigne[0]),Integer.parseInt(tLigne[1]), (tLigne[0] + ">>" + tLigne[1]));
             }
 
         }//while
