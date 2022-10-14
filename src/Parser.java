@@ -52,7 +52,6 @@ public class Parser {
             }
             //^[0-9\-]
             else if(Character.isDigit(ligne.charAt(0)) | ligne.charAt(0) == '-'){
-                //TODO Transformer en implications
                 String[] tLigne = ligne.split(" ");
 
                 assert leGraph != null;

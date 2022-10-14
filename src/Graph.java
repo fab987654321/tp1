@@ -76,7 +76,7 @@ public class Graph<Label>  {
     }
 
     public Graph<String> getTranspose(){
-        Graph<String> graphTranspose = new Graph<String>(cardinal);
+        Graph<String> graphTranspose = new Graph<String>(this.order());
 
         for (int i = 0; i<cardinal;i++)
             for (Edge e : incidency.get(i))
