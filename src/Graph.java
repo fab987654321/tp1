@@ -38,9 +38,7 @@ public class Graph<Label>  {
         incidency.get(source).addLast(new Edge(source,dest,label));
     }
 //Pour gérer les nombres négatifs
-    private void addClauses(int src,int dest,Label label){
-       //TODO a vérifier
-
+    private void addArcControl(int src,int dest,Label label){
         if (src < 0 ) src = src * -1 + cardinal/2;
         if (dest < 0) dest = dest * -1 + cardinal/2;
         try {
@@ -55,26 +53,38 @@ public class Graph<Label>  {
         try {
             // P V Q : (nP => Q) et (nQ => P)
             if(l1 > 0 && l2 > 0){
-                this.addClauses(-l1,l2,lab);
-                this.addClauses(-l2,l1,lab);
+                this.addArcControl(-l1,l2,lab);
+                this.addArcControl(-l2,l1,lab);
             }
             // nP V nQ : (P => nQ) et (Q => nP)
             else if(l1 < 0 && l2 < 0){
-                this.addClauses(-l1,l2,lab);
-                this.addClauses(-l2,l1,lab);
+                this.addArcControl(-l1,l2,lab);
+                this.addArcControl(-l2,l1,lab);
             }
             // P V nQ : Q => P
             else if(l1 > 0 && l2 < 0){
-                this.addClauses(-l2,l1,lab);
+                this.addArcControl(-l2,l1,lab);
             }
             // nP V Q : P => Q
             else if(l1 < 0 && l2 > 0){
-                this.addClauses(-l1,l2,lab);
+                this.addArcControl(-l1,l2,lab);
             }
         }catch (Exception e){
             System.out.println(e);
         }
 
+    }
+
+    public Graph<String> getTranspose(){
+        Graph<String> graphTranspose = new Graph<String>(cardinal);
+
+        for (int i = 0; i<cardinal;i++)
+            for (Edge e : incidency.get(i))
+                try {
+                    graphTranspose.addArc(e.destination,e.source,Integer.toString(e.destination)+  ">>" + Integer.toString(e.source)  );
+                }catch (Exception exep) {System.out.println(exep);}
+
+        return graphTranspose;
     }
 
     public String toString() {

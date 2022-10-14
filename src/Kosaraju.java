@@ -2,7 +2,7 @@ public class Kosaraju {
 
     private Graph<String> leGraph ;
     public  Kosaraju( Graph<String> graph){
-        leGraph = graph;
+        this.leGraph = graph;
     }
 
   public int[] sccs(){

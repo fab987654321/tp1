@@ -1,3 +1,5 @@
+import java.io.Serial;
+
 import static java.lang.System.exit;
 
 public class Main {
@@ -16,6 +18,8 @@ public class Main {
 
         Kosaraju k = new Kosaraju(graph);
         int[] composantes = k.sccs();
+
+        System.out.println((graph.getTranspose()).toString());
 /*
         if (TwoSat.checkConsistency(composantes)) {
             System.out.println("Formula " + filename + ": satisfiable");
