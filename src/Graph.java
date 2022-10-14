@@ -81,7 +81,7 @@ public class Graph<Label>  {
         for (int i = 0; i<cardinal;i++)
             for (Edge e : incidency.get(i))
                 try {
-                    graphTranspose.addArc(e.destination,e.source,Integer.toString(e.destination)+  ">>" + Integer.toString(e.source)  );
+                    graphTranspose.addArc(e.destination,e.source,e.label.toString());
                 }catch (Exception exep) {System.out.println(exep);}
 
         return graphTranspose;
@@ -102,7 +102,6 @@ public class Graph<Label>  {
             }
         }
         return result;
-	
     }
 
 

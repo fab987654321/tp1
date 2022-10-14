@@ -31,11 +31,12 @@ public class Parser {
         int nb_Clause;
         String ligne ;
         Graph<String> leGraph = null;
-
+        int numLigne = 0;
 
         //Boucle sur les ligne du fichier
         while(fichier.hasNextLine()) {
             ligne = fichier.nextLine();
+            numLigne += 1;
 
             //Compare les début de ligne
 
@@ -55,7 +56,7 @@ public class Parser {
                 String[] tLigne = ligne.split(" ");
 
                 assert leGraph != null;
-                leGraph.addClauseArc(Integer.parseInt(tLigne[0]),Integer.parseInt(tLigne[1]), (tLigne[0] + ">>" + tLigne[1]));
+                leGraph.addClauseArc(Integer.parseInt(tLigne[0]),Integer.parseInt(tLigne[1]), Integer.toString(numLigne));
             }
 
         }//while
