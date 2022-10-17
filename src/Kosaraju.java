@@ -11,7 +11,7 @@ public class Kosaraju {
 
   public int[] sccs(){
       try {
-          for (int i = 0 ; i < 40 ; i++) System.out.println(Arrays.toString(leGraph.getIncidency(i)));
+          for (int i = 0 ; i < 17 ; i++) System.out.println(Arrays.toString(leGraph.getIncidency(i)));
           //leGraph.getAdj(1);
       } catch (Exception e) {
           System.out.println(e);

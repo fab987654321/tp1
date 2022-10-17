@@ -1,3 +1,4 @@
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -39,21 +40,32 @@ public class Graph<Label>  {
      * @throws Exception index introuvable
      */
      public String[] getIncidency(int n) throws Exception{
+//         System.out.println(">>>>>>>>>>>>>>>>>>>>>>"+incidency.size());+
+
        //Si n n'est pas un index d'arc
-//         System.out.println(">>>>>>>>>>>>>>>>>>>>>>"+incidency.size());
         if (n < 0 || n >= incidency.size())
             throw new Exception("Hors de l'index");
 
+        //TODO utiliser ce principe pour gérer les elements vide de merde
+         System.out.println("//Vérif tableau vide");
+        for (int i = 0; i < incidency.size();i++){
+            System.out.println(i);
+            System.out.println(incidency.get(i) +" : "+ incidency.get(i).size());
+
+
+        }
+         System.out.println("//Fn Vérif tableau vide");
         //Convertis la linkedList en List
          List<String> ret = new ArrayList<>();
          for (int i = 1; i<this.order();i++)
              for (Edge e : incidency.get(i))
-                 ret.add(e.toArray().toString().replace(",", ""));
+                     ret.add(e.toArray().toString().replace(",", ""));
 
          //Convertis la List en String[]
          String[] str = new String[ret.size()];
          for (int i = 0; i< ret.size();i++)
              str[i] = ret.get(i);
+
 
          return str[n].split(" ");
      }
@@ -63,8 +75,8 @@ public class Graph<Label>  {
         List<Integer> listDest = new ArrayList<Integer>();
 
         //Récupère tt les éléments dont la src correspond à la var sommet
-        for (int i = 1; i<=this.order();i++)
-            System.out.println(">>>>>>> "+this.getIncidency(i).toString() );
+        //for (int i = 1; i<=this.order();i++)
+          //  System.out.println(">>>>>>> "+this.getIncidency(i).toString() );
     }
 
     public Graph(int size) {
@@ -91,7 +103,7 @@ public class Graph<Label>  {
         try {
             this.addArc(src,dest, label);
 
-            System.out.println(incidency);
+           // System.out.println(incidency);
 
         } catch (Exception e) {
             System.out.println(e);
