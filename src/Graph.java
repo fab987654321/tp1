@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class Graph<Label>  {
 
@@ -13,18 +13,65 @@ public class Graph<Label>  {
             this.destination = to;
             this.label = label;
         }
+
+        @Override
+        public String toString() {
+            return Integer.toString(this.source) + " --> " + Integer.toString(this.destination) +", Etiquette: "+ this.label;
+        }
+
+        public List<String> toArray() {
+            List<String> a = new ArrayList<>();
+
+            a.add(0,Integer.toString(this.source));
+            a.add(1,Integer.toString(this.destination));
+            a.add(2, (this.label).toString());
+
+            return a;
+        }
     }
 
     private int cardinal;
     private ArrayList<LinkedList<Edge>> incidency;
 
+    /**Recupère un arc via son index
+     * @param n index de l'implication 0 --> x
+     * @return  String[] = {src,dest,etiquette}
+     * @throws Exception index introuvable
+     */
+     public String[] getIncidency(int n) throws Exception{
+       //Si n n'est pas un index d'arc
+//         System.out.println(">>>>>>>>>>>>>>>>>>>>>>"+incidency.size());
+        if (n < 0 || n >= incidency.size())
+            throw new Exception("Hors de l'index");
+
+        //Convertis la linkedList en List
+         List<String> ret = new ArrayList<>();
+         for (int i = 1; i<this.order();i++)
+             for (Edge e : incidency.get(i))
+                 ret.add(e.toArray().toString().replace(",", ""));
+
+         //Convertis la List en String[]
+         String[] str = new String[ret.size()];
+         for (int i = 0; i< ret.size();i++)
+             str[i] = ret.get(i);
+
+         return str[n].split(" ");
+     }
+
+    //Retourne une liste des sommets accessible par le sommet passé en paramètre
+    public void getAdj(int sommet) throws Exception{
+        List<Integer> listDest = new ArrayList<Integer>();
+
+        //Récupère tt les éléments dont la src correspond à la var sommet
+        for (int i = 1; i<=this.order();i++)
+            System.out.println(">>>>>>> "+this.getIncidency(i).toString() );
+    }
 
     public Graph(int size) {
         cardinal = size;
         incidency = new ArrayList<LinkedList<Edge>>(size+1);
-        for (int i = 0;i<cardinal;i++) {
+        for (int i = 0;i<this.order();i++)
             incidency.add(i, new LinkedList<Edge>());
-        }
     }
 
     public int order() {
@@ -39,10 +86,13 @@ public class Graph<Label>  {
     }
 //Pour gérer les nombres négatifs
     private void addArcControl(int src,int dest,Label label){
-        if (src < 0 ) src = src * -1 + cardinal/2;
-        if (dest < 0) dest = dest * -1 + cardinal/2;
+        if (src < 0 ) src = src * -1 + this.order()/2;
+        if (dest < 0) dest = dest * -1 + this.order()/2;
         try {
             this.addArc(src,dest, label);
+
+            System.out.println(incidency);
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -91,16 +141,17 @@ public class Graph<Label>  {
         String result = new String("");
         result = result.concat("Nombre sommets : " + cardinal + "\n");
         result = result.concat("Sommets : \n");
-        for (int i = 0; i<cardinal;i++) {
-	    result = result.concat(i + " ");
-		}
+
+        for (int i = 0; i<this.order();i++)
+	        result = result.concat(i + " ");
+
         result = result.concat("\nArcs : \n");
-        for (int i = 0; i<cardinal;i++) {
-            for (Edge e : incidency.get(i)) {
-                result = result.concat(e.source + " -> " + e.destination + ", étiquette : "
-				       + e.label.toString() + "\n");
-            }
-        }
+
+        for (int i = 0; i<this.order();i++)
+            for (Edge e : incidency.get(i))
+                result = result.concat(e + "\n");
+
+
         return result;
     }
 
