@@ -48,7 +48,7 @@ public class Parser {
                 nb_Clause = Integer.parseInt(paramSplit[3]);
 
                 //Génére le graph
-                leGraph = new Graph<String>(nb_Clause * 2);
+                leGraph = new Graph<String>(nb_literaux * 2);
             }
             //^[0-9\-]
             else if(Character.isDigit(ligne.charAt(0)) | ligne.charAt(0) == '-'){

@@ -21,7 +21,7 @@ public class Graph<Label> {
                     + this.label;
         }
 
-        public List<String> toArray() {
+        public List<String> toList() {
             List<String> a = new ArrayList<>();
 
             a.add(0, Integer.toString(this.source));
@@ -51,7 +51,7 @@ public class Graph<Label> {
         //Recup la liste des arc
         List<String> ret = this.getListArc();
         
-        //Si sort de la liste (cause des elements vide)
+        //Si sort de la liste
         if (n >= ret.size())
             throw new Exception("Hors de l'index");
 
@@ -61,6 +61,14 @@ public class Graph<Label> {
     // Retourne une liste des sommets accessible par le sommet passé en paramètre
     public void getAdj(int sommet) throws Exception {
         List<Integer> listDest = new ArrayList<Integer>();
+        List<String> tout = getListArc();
+        
+        for(int i = 0; i < tout.size();i++){
+            String[] ligne = tout.get(i).split(" ");
+            if (Integer.parseInt(ligne[0]) == sommet) {
+                listDest.add(Integer.parseInt(ligne[1]));
+            }
+        }
 
         // Récupère tt les éléments dont la src correspond à la var sommet
         // for (int i = 1; i<=this.order();i++)
@@ -75,15 +83,14 @@ public class Graph<Label> {
         List<String> ret = new ArrayList<>();
         for (int i = 0; i < this.order(); i++)
             for (Edge e : incidency.get(i))
-                if (e.toArray().size() != 0)
-                    ret.add(e.toArray().toString().replace(",", ""));
-
+                if (e.toList().size() != 0)
+                    ret.add(e.toList().toString().replace(",", "").replace("[", "").replace("]", ""));
         return ret;
     }
 
     /**
      * 
-     * @param size correspondant au nombre de ????
+     * @param size correspondant au nombre de sommets
      */
     public Graph(int size) {
         cardinal = size;
@@ -122,24 +129,8 @@ public class Graph<Label> {
     // Pour générer les implication à partir d'une clause
     public void addClauseArc(int l1, int l2, Label lab) {
         try {
-            // P V Q : (nP => Q) et (nQ => P)
-            if (l1 > 0 && l2 > 0) {
-                this.addArcControl(-l1, l2, lab);
-                this.addArcControl(-l2, l1, lab);
-            }
-            // nP V nQ : (P => nQ) et (Q => nP)
-            else if (l1 < 0 && l2 < 0) {
-                this.addArcControl(-l1, l2, lab);
-                this.addArcControl(-l2, l1, lab);
-            }
-            // P V nQ : Q => P
-            else if (l1 > 0 && l2 < 0) {
-                this.addArcControl(-l2, l1, lab);
-            }
-            // nP V Q : P => Q
-            else if (l1 < 0 && l2 > 0) {
-                this.addArcControl(-l1, l2, lab);
-            }
+            this.addArcControl(-l1, l2, lab);
+            this.addArcControl(-l2, l1, lab);
         } catch (Exception e) {
             System.out.println(e);
         }
