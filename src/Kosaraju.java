@@ -33,11 +33,8 @@ public class Kosaraju {
         chemin.add(Integer.parseInt(leGraph.getIncidency(0)[0]));
         visite.add(chemin.get(0));
 
-        // TODO transformer en while sur la pile chemin et/ou sortie
-        // Boucle sur tt les arc
-        int i = 0;
-        while (true) {
-            i++;
+        // Attention, il se stop lors du break dans le catch (NoSuchElementException e)
+        while (true)
             try {
                 System.out.println("---------------");
                 // Sommet actuel
@@ -50,7 +47,7 @@ public class Kosaraju {
 
                 // Si au moins 1 adjacent
                 if (tmpAdj.size() > 0)
-                    for (int each : tmpAdj) {
+                    for (int each : tmpAdj)
                         // Si au moins 1 adjacent non visité
                         if (!visite.contains(each)) {
                             System.out.println(tmpSommetActuel + " visite " + each);
@@ -58,8 +55,7 @@ public class Kosaraju {
                             // Quite le for (normalement)
                             break;
                         }
-                    }
-                System.out.println("each " + intIsVisite);
+                System.out.println("Aller à " + intIsVisite);
                 // Si Sommet accéssible
                 if (intIsVisite != -1) {
                     // Ajoute l'élément à la pile visité et au chemin
@@ -74,19 +70,13 @@ public class Kosaraju {
                 }
 
             } catch (NoSuchElementException e) {
-                // Cas ou on a tout dépilé
-                System.out.println("Fini de dépiler" + sortie.toString());
-                break;//
+                break;// Pour sortir du while
             }
-        }
-        // Boucle
-        // Regarde les sommets accécibles
-        // Si exite sommet accessible non visité
-        // Avance au dis sommet
-        // Sinon
-        // Mets dans la pile des sommets fini (noir)
-        // Recule au sommet précedent
 
+        System.out.println("Pile de sortie 1° passe" + sortie.toString());
+
+        // Faire la transposé
+        // faire un algo pour gérer le dfs dans la transposé avec la pile de sortie
         return new int[10];
     }
 
