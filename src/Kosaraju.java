@@ -76,7 +76,10 @@ public class Kosaraju {
         System.out.println("Pile de sortie 1° passe" + sortie.toString());
 
         // Faire la transposé
-        // faire un algo pour gérer le dfs dans la transposé avec la pile de sortie
+        Graph trGraph = leGraph.getTranspose();
+        // Faire un algo pour gérer le dfs dans la transposé avec la pile de sortie
+        // Utiliser la pile de sortie pour naviguer dans le graph
+
         return new int[10];
     }
 
