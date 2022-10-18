@@ -59,7 +59,7 @@ public class Graph<Label> {
     }
 
     // Retourne une liste des sommets accessible par le sommet passé en paramètre
-    public void getAdj(int sommet) throws Exception {
+    public List<Integer> getAdj(int sommet) {
         List<Integer> listDest = new ArrayList<Integer>();
         List<String> tout = getListArc();
         
@@ -67,12 +67,10 @@ public class Graph<Label> {
             String[] ligne = tout.get(i).split(" ");
             if (Integer.parseInt(ligne[0]) == sommet) {
                 listDest.add(Integer.parseInt(ligne[1]));
+//                System.out.println(">>>"+listDest.toString());
             }
         }
-
-        // Récupère tt les éléments dont la src correspond à la var sommet
-        // for (int i = 1; i<=this.order();i++)
-        // System.out.println(">>>>>>> "+this.getIncidency(i).toString() );
+        return listDest;
     }
 
     

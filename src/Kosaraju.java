@@ -1,3 +1,5 @@
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 public class Kosaraju {
@@ -10,7 +12,6 @@ public class Kosaraju {
   public int[] sccs(){
           try {
 
-            leGraph.getAdj(1);
            // System.out.println( leGraph.getListArc());
             
           //leGraph.getAdj(0);
@@ -18,8 +19,35 @@ public class Kosaraju {
          // System.out.println(e);
       }
 
+       
+      Set<Integer> visite = new HashSet<>();
+      //Pile
+      Stack<Integer> sortie = new Stack<>();
+      Stack<Integer> chemin = new Stack<>(); 
+
       //Je pars d'un point de départ (ligne 1)
+      chemin.add(leGraph.getAdj(1).get(0));
       //Mets dans la pile des visitées
+      visite.add(leGraph.getAdj(1).get(0));
+      
+      for (int i = 0; i < leGraph.order();i++) {
+        //Int en haut de la pile
+        chemin.lastElement();
+        //List<int> des adjacents
+        leGraph.getAdj(chemin.lastElement());
+        
+        //recup list adj
+        //Si pas adjacent non visité alors
+                //ajoute au stack sortie 
+                //recommence la boucle
+        //prendre element à la position 1
+        //Ajoute le dis élément à la pile visité 
+        //Ajoute le dis élément au chemin
+            //Si pas adjacent non visité alors
+                //ajoute au stack sortie 
+                //recommence la boucle
+      }
+
       //Boucle
         //Regarde les sommets accécibles
             //Si exite sommet accessible non visité
