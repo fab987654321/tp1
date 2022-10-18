@@ -12,8 +12,9 @@ public class Kosaraju {
       
           for (int i = 0 ; i < 40 ; i++) 
           try {
-          System.out.println(Arrays.toString(leGraph.getIncidency(i)));
-          //leGraph.getAdj(1);
+            System.out.println(i+Arrays.toString(leGraph.getListArc().get(i).split(" ")));
+            
+          //leGraph.getAdj(0);
       } catch (Exception e) {
          // System.out.println(e);
       }

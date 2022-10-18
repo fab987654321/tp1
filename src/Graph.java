@@ -38,9 +38,9 @@ public class Graph<Label> {
     /**
      * Recupère un arc via son index
      * 
-     * @param n index de l'implication 0 --> x
+     * @param n index de l'implication 0 --> n
      * @return String[] = {src,dest,etiquette}
-     * @throws Exception index introuvable
+     * @throws Exception 
      */
     public String[] getIncidency(int n) throws Exception {
 
@@ -48,13 +48,10 @@ public class Graph<Label> {
         if (n < 0 || n >= incidency.size())
             throw new Exception("Hors de l'index");
 
-        // Convertis la linkedList en List<String>
-        List<String> ret = new ArrayList<>();
-        for (int i = 0; i < this.order(); i++)
-            for (Edge e : incidency.get(i))
-                if (e.toArray().size() != 0)
-                    ret.add(e.toArray().toString().replace(",", ""));
-
+        //Recup la liste des arc
+        List<String> ret = this.getListArc();
+        
+        //Si sort de la liste (cause des elements vide)
         if (n >= ret.size())
             throw new Exception("Hors de l'index");
 
@@ -70,6 +67,24 @@ public class Graph<Label> {
         // System.out.println(">>>>>>> "+this.getIncidency(i).toString() );
     }
 
+    
+    /** 
+     * @return List contennant tous les arcs  
+     */
+    public List<String> getListArc(){
+        List<String> ret = new ArrayList<>();
+        for (int i = 0; i < this.order(); i++)
+            for (Edge e : incidency.get(i))
+                if (e.toArray().size() != 0)
+                    ret.add(e.toArray().toString().replace(",", ""));
+
+        return ret;
+    }
+
+    /**
+     * 
+     * @param size correspondant au nombre de ????
+     */
     public Graph(int size) {
         cardinal = size;
         incidency = new ArrayList<LinkedList<Edge>>(size + 1);
