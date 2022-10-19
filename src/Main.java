@@ -7,7 +7,7 @@ public class Main {
 
         // String filename = "formulas/testSet0/formula2.txt";
         // String filename = "formulas/testSet1/formula4.txt";
-        String filename = "formulas/formula.txt";
+        String filename = "formulas/formule-2-sat.txt";
         if (0 < args.length) {
             filename = args[0];
         }

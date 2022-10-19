@@ -111,13 +111,11 @@ public class Graph<Label> {
     // Pour gérer les nombres négatifs
     private void addArcControl(int src, int dest, Label label) {
         if (src < 0)
-            src = src * -1 + this.order() / 2;
+            src = src + this.order() + 1;
         if (dest < 0)
-            dest = dest * -1 + this.order() / 2;
+            dest = dest + this.order() + 1;
         try {
             this.addArc(src, dest, label);
-
-            // System.out.println(incidency);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -127,8 +125,8 @@ public class Graph<Label> {
     // Pour générer les implication à partir d'une clause
     public void addClauseArc(int l1, int l2, Label lab) {
         try {
-            this.addArcControl(-l1, l2, lab);
-            this.addArcControl(-l2, l1, lab);
+            this.addArcControl(-l1 - 1, l2 - 1, lab);
+            this.addArcControl(-l2 - 1, l1 - 1, lab);
         } catch (Exception e) {
             System.out.println(e);
         }

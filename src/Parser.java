@@ -41,17 +41,20 @@ public class Parser {
                 nb_literaux = Integer.parseInt(paramSplit[2]);
                 nb_Clause = Integer.parseInt(paramSplit[3]);
                 // Génére le graph
-                leGraph = new Graph<String>(nb_literaux * 2 + 1);
+                leGraph = new Graph<String>(nb_literaux * 2);
+                System.out.println("Litéraux " + nb_literaux);
             }
             // ^[0-9\-]
             else if (Character.isDigit(ligne.charAt(0)) | ligne.charAt(0) == '-') {
                 String[] tLigne = ligne.split(" ");
                 assert leGraph != null;
-                leGraph.addClauseArc(Integer.parseInt(tLigne[0]), Integer.parseInt(tLigne[1]),
-                        Integer.toString(numLigne));
+                leGraph.addClauseArc(Integer.parseInt(tLigne[0]),
+                        Integer.parseInt(tLigne[1]), Integer.toString(numLigne));
+                System.out.println(tLigne[0] + "---> " + tLigne[1]);
             }
 
         } // while
+        System.out.println("Lignes boucle: " + numLigne);
 
         fichier.close();
 
