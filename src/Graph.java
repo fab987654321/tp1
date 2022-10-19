@@ -40,7 +40,7 @@ public class Graph<Label> {
      * 
      * @param n index de l'implication 0 --> n
      * @return String[] = {src,dest,etiquette}
-     * @throws Exception 
+     * @throws Exception
      */
     public String[] getIncidency(int n) throws Exception {
 
@@ -48,10 +48,10 @@ public class Graph<Label> {
         if (n < 0 || n >= incidency.size())
             throw new Exception("Hors de l'index");
 
-        //Recup la liste des arc
+        // Recup la liste des arc
         List<String> ret = this.getListArc();
-        
-        //Si sort de la liste
+
+        // Si sort de la liste
         if (n >= ret.size())
             throw new Exception("Hors de l'index");
 
@@ -62,22 +62,21 @@ public class Graph<Label> {
     public List<Integer> getAdj(int sommet) {
         List<Integer> listDest = new ArrayList<Integer>();
         List<String> tout = getListArc();
-        
-        for(int i = 0; i < tout.size();i++){
+
+        for (int i = 0; i < tout.size(); i++) {
             String[] ligne = tout.get(i).split(" ");
             if (Integer.parseInt(ligne[0]) == sommet) {
                 listDest.add(Integer.parseInt(ligne[1]));
-//                System.out.println(">>>"+listDest.toString());
+                // System.out.println(">>>"+listDest.toString());
             }
         }
         return listDest;
     }
 
-    
-    /** 
-     * @return List contennant tous les arcs  
+    /**
+     * @return List contennant tous les arcs
      */
-    public List<String> getListArc(){
+    public List<String> getListArc() {
         List<String> ret = new ArrayList<>();
         for (int i = 0; i < this.order(); i++)
             for (Edge e : incidency.get(i))
@@ -103,7 +102,8 @@ public class Graph<Label> {
 
     public void addArc(int source, int dest, Label label) throws Exception {
         if (Math.max(source, dest) >= this.cardinal) {
-            throw new Exception("Sommets trop gros pour la taille du graphe");
+            throw new Exception(
+                    "Sommets trop gros pour la taille du graphe" + this.cardinal + " : " + source + "--->" + dest);
         }
         incidency.get(source).addLast(new Edge(source, dest, label));
     }
@@ -137,7 +137,6 @@ public class Graph<Label> {
 
     public Graph<String> getTranspose() {
         Graph<String> graphTranspose = new Graph<String>(this.order());
-
         for (int i = 0; i < cardinal; i++)
             for (Edge e : incidency.get(i))
                 try {

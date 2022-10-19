@@ -75,7 +75,7 @@ public class Kosaraju {
                 break;// Pour sortir du while
             }
 
-        // System.out.println("Pile de sortie 1° passe" + sortie.toString());
+        System.out.println("Pile de sortie 1° passe" + sortie.toString());
 
         // Transposée
         Graph trGraph = leGraph.getTranspose();

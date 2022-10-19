@@ -3,66 +3,57 @@ import java.util.Scanner;
 
 public class Parser {
 
-    public  Parser(){
+    public Parser() {
 
     }
 
-    private Scanner openFile(String cheminFichier){
+    private Scanner openFile(String cheminFichier) {
         Scanner scanner = null;
-        try
-        {
+        try {
             File file = new File(cheminFichier);
             scanner = new Scanner(file);
 
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return  scanner;
+        return scanner;
     }
 
-    public Graph<String> parse(String filename){
+    public Graph<String> parse(String filename) {
 
-        //Ouvrir le fichier formule-2-sat.txt
+        // Ouvrir le fichier formule-2-sat.txt
         Scanner fichier = openFile(filename);
 
         int nb_literaux;
         int nb_Clause;
-        String ligne ;
+        String ligne;
         Graph<String> leGraph = null;
         int numLigne = 0;
 
-        //Boucle sur les ligne du fichier
-        while(fichier.hasNextLine()) {
+        // Boucle sur les ligne du fichier
+        while (fichier.hasNextLine()) {
             ligne = fichier.nextLine();
             numLigne += 1;
-
-            //Compare les début de ligne
-
+            // Compare les début de ligne
             if (ligne.startsWith("p")) {
-
-                //Recup les deux int séparé
+                // Recup les deux int séparé
                 String[] paramSplit = ligne.split(" ");
                 nb_literaux = Integer.parseInt(paramSplit[2]);
                 nb_Clause = Integer.parseInt(paramSplit[3]);
-
-                //Génére le graph
-                leGraph = new Graph<String>(nb_literaux * 2);
+                // Génére le graph
+                leGraph = new Graph<String>(nb_literaux * 2 + 1);
             }
-            //^[0-9\-]
-            else if(Character.isDigit(ligne.charAt(0)) | ligne.charAt(0) == '-'){
+            // ^[0-9\-]
+            else if (Character.isDigit(ligne.charAt(0)) | ligne.charAt(0) == '-') {
                 String[] tLigne = ligne.split(" ");
-
                 assert leGraph != null;
-                leGraph.addClauseArc(Integer.parseInt(tLigne[0]),Integer.parseInt(tLigne[1]), Integer.toString(numLigne));
+                leGraph.addClauseArc(Integer.parseInt(tLigne[0]), Integer.parseInt(tLigne[1]),
+                        Integer.toString(numLigne));
             }
 
-        }//while
+        } // while
 
         fichier.close();
-
-
 
         return leGraph;
     }
