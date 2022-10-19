@@ -30,17 +30,23 @@ public class Graph<Label> {
         // Pour récupérer les bon numéros de sommet
         private String convertSommet(int cardi) {
             String ret = new String("");
-            if (this.source > (cardi / 2))
+            if (this.source > (cardi / 2)) {
+                System.out.println(this.source + " > " + cardi);
                 ret += Integer.toString(this.source - cardi);
-            else
+            } else {
+                System.out.println(this.source + " << " + cardi);
                 ret += Integer.toString(this.source + 1);
+            }
 
             ret += " --> ";
 
-            if (this.destination > (cardi / 2))
+            if (this.destination > (cardi / 2)) {
+                System.out.println(this.destination + " > " + cardi);
                 ret += Integer.toString(this.destination - cardi);
-            else
+            } else {
+                System.out.println(this.destination + " << " + cardi);
                 ret += Integer.toString(this.destination + 1);
+            }
 
             return ret;
         }
