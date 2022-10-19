@@ -21,6 +21,14 @@ public class Graph<Label> {
                     + this.label;
         }
 
+        public String toString(int cardi) {
+            return Integer.toString((this.source > cardi / 2) ? this.source - cardi : this.source)
+                    + " -->>"
+                    + Integer.toString((this.destination > cardi / 2) ? this.destination - cardi : this.destination)
+                    + ", Etiquette: "
+                    + this.label;
+        }
+
         public List<String> toList() {
             List<String> a = new ArrayList<>();
 
@@ -116,7 +124,6 @@ public class Graph<Label> {
             dest = dest + this.order() + 1;
         try {
             this.addArc(src, dest, label);
-
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -125,8 +132,14 @@ public class Graph<Label> {
     // Pour générer les implication à partir d'une clause
     public void addClauseArc(int l1, int l2, Label lab) {
         try {
-            this.addArcControl(-l1 - 1, l2 - 1, lab);
-            this.addArcControl(-l2 - 1, l1 - 1, lab);
+            System.out.println("-------------");
+            System.out.println("c:" + l1 + ":" + l2);
+            l1--;
+            l2--;
+            System.out.println("c:" + l1 + ":" + l2);
+
+            this.addArcControl(-l1, l2, lab);
+            this.addArcControl(-l2, l1, lab);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -153,13 +166,13 @@ public class Graph<Label> {
         result = result.concat("Sommets : \n");
 
         for (int i = 0; i < this.order(); i++)
-            result = result.concat(i + " ");
+            result = result.concat(((i > this.order() / 2) ? i - this.order() : i) + " ");
 
         result = result.concat("\nArcs : \n");
 
         for (int i = 0; i < this.order(); i++)
             for (Edge e : incidency.get(i))
-                result = result.concat(e + "\n");
+                result = result.concat(e.toString(this.order()) + "\n");
 
         return result;
     }
