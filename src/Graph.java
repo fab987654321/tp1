@@ -119,9 +119,9 @@ public class Graph<Label> {
     // Pour gérer les nombres négatifs
     private void addArcControl(int src, int dest, Label label) {
         if (src < 0)
-            src = src + this.order() + 1;
+            src += this.order() + 1;
         if (dest < 0)
-            dest = dest + this.order() + 1;
+            dest += this.order() + 1;
         try {
             this.addArc(src, dest, label);
         } catch (Exception e) {
@@ -172,7 +172,7 @@ public class Graph<Label> {
 
         for (int i = 0; i < this.order(); i++)
             for (Edge e : incidency.get(i))
-                result = result.concat(e.toString(this.order()) + "\n");
+                result = result.concat(e.toString() + "\n");
 
         return result;
     }
