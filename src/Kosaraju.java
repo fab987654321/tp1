@@ -80,19 +80,36 @@ public class Kosaraju {
                         System.out.println("Sortie: " + sortie.toString());
                 }
 
-            } catch (NoSuchElementException e) {
+            }
+            // Si chemin vide
+            catch (NoSuchElementException e) {
                 boolean isexiste = false;
                 // Récupérer la liste des sommets et voir si ils existent tous dans les visité
-                // SI chemin vide alors vérifier que tt les sommets soient parcourus
-                System.out.println("Les sommets" + leGraph.getSommets().toString());
+                int sommets = -999999;
+                // Si un sommet non parcouru alors recup sa valeur dans sommets
 
+                // TODO vérifier que sa face pas une boucle infini
+                if (false)
+                    for (int i = 0; i < leGraph.getSommets().size(); i++) {
+                        if (!visite.contains(leGraph.getSommets().get(i))) {
+                            isexiste = true;
+                            sommets = leGraph.getSommets().get(i);
+                            break;
+                        }
+                    }
+                // System.out.println("Les sommets" + leGraph.getSommets().toString());
+                // Si existe on le met dans le chemin
                 if (isexiste) {
-
-                } else {
-
+                    // TODO vérifier que sa face pas une boucle infini
+                    // chemin.add(sommets);
                 }
                 // Si plus de sommets accéssible
+                else {
+
+                    // break;// Pour sortir du while
+                }
                 break;// Pour sortir du while
+
             }
 
         // Affiche la pile de sortie
