@@ -22,20 +22,11 @@ public class Graph<Label> {
         }
 
         public String toString(int cardi) {
-            return convertSommet(cardi, this.source)
+            return Util.convertSommet(cardi, this.source)
                     + " --> "
-                    + convertSommet(cardi, this.destination)
+                    + Util.convertSommet(cardi, this.destination)
                     + ", Etiquette: "
                     + this.label;
-        }
-
-        // Pour récupérer les bon numéros de sommet
-        private String convertSommet(int cardi, int element) {
-            if (element >= cardi / 2)
-                return Integer.toString(element - cardi);
-            else
-                return Integer.toString(element + 1);
-
         }
 
         public List<String> toList() {
@@ -127,7 +118,7 @@ public class Graph<Label> {
 
     // Pour gérer les nombres négatifs
     private void addArcControl(int src, int dest, Label label) {
-        System.out.println("c:" + src + "//" + dest + ", order:" + this.order());
+        // System.out.println("c:" + src + "//" + dest + ", order:" + this.order());
         src--; // Pour avoir un index qui démarre à 0
         dest--; // Pour avoir un index qui démarre à 0
 
@@ -136,7 +127,7 @@ public class Graph<Label> {
         if (dest < 0)
             dest += this.order() + 1;
         try {
-            System.out.println("src:" + src + ", dest;" + dest);
+            // System.out.println("src:" + src + ", dest;" + dest);
             this.addArc(src, dest, label);
         } catch (Exception e) {
             System.out.println(e);
@@ -146,8 +137,8 @@ public class Graph<Label> {
     // Pour générer les implication à partir d'une clause
     public void addClauseArc(int l1, int l2, Label lab) {
         try {
-            System.out.println("-------------");
-            System.out.println("c:" + l1 + ":" + l2);
+            // System.out.println("-------------");
+            // System.out.println("c:" + l1 + ":" + l2);
             this.addArcControl(-l1, l2, lab);
             this.addArcControl(-l2, l1, lab);
         } catch (Exception e) {
@@ -175,16 +166,19 @@ public class Graph<Label> {
         result = result.concat("Nombre sommets : " + cardinal + "\n");
         result = result.concat("Sommets : \n");
 
-        for (int i = 0; i < this.order(); i++)
-            result = result.concat(((i > this.order() / 2) ? i - this.order() : i) + " ");
+        for (int i = 0; i < this.order(); i++) {
+            if (i < this.order() / 2)
+                result = result.concat(i + 1 + " ");
+            else
+                result = result.concat(i - this.order() + " ");
+
+        }
 
         result = result.concat("\nArcs : \n");
 
         for (int i = 0; i < this.order(); i++)
-            for (Edge e : incidency.get(i)) {
-                result = result.concat(e.toString(this.order()) + " ");
-                result = result.concat(e.toString() + "\n");
-            }
+            for (Edge e : incidency.get(i))
+                result = result.concat(e.toString(this.order()) + "\n");
 
         return result;
     }

@@ -75,7 +75,12 @@ public class Kosaraju {
                 break;// Pour sortir du while
             }
 
-        System.out.println("Pile de sortie 1° passe" + sortie.toString());
+        System.out.println("Pile de sortie 1° passe" + sortie);
+        for (int i = 0; i < sortie.toArray().length; i++) {
+            // TODO faire fonctionner
+            // System.out.println(Util.convertSommet(leGraph.order(), (int)
+            // (sortie.toArray()[i])));
+        }
 
         // Transposée
         Graph trGraph = leGraph.getTranspose();
