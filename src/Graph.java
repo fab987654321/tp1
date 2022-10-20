@@ -22,9 +22,9 @@ public class Graph<Label> {
         }
 
         public String toString(int cardi) {
-            return Util.convertSommet(cardi, this.source)
+            return UtilStat.convertSommet(cardi, this.source)
                     + " --> "
-                    + Util.convertSommet(cardi, this.destination)
+                    + UtilStat.convertSommet(cardi, this.destination)
                     + ", Etiquette: "
                     + this.label;
         }
