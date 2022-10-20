@@ -84,7 +84,13 @@ public class Kosaraju {
                 boolean isexiste = false;
                 // Récupérer la liste des sommets et voir si ils existent tous dans les visité
                 // SI chemin vide alors vérifier que tt les sommets soient parcourus
-                System.out.println(leGraph.getSommets().toString());
+                System.out.println("Les sommets" + leGraph.getSommets().toString());
+
+                if (isexiste) {
+
+                } else {
+
+                }
                 // Si plus de sommets accéssible
                 break;// Pour sortir du while
             }

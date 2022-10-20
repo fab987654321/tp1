@@ -90,6 +90,20 @@ public class Graph<Label> {
         return ret;
     }
 
+    // retourne les sommets mais avec un post traitement pour avoir les nombres
+    // négatif
+    public List<Integer> getSommets_IHM() {
+        List<Integer> list = this.getSommets();
+        List<Integer> ret = new ArrayList<>();
+        int b = 0;
+        for (Integer a : list) {
+            b = UtilStat.convertSommet(this.order(), a);
+            ret.add(b);
+        }
+
+        return ret;
+    }
+
     // Retourne une liste des sommets accessible par le sommet passé en paramètre
     public List<Integer> getAdj(int sommet) {
         List<Integer> listDest = new ArrayList<Integer>();
@@ -187,15 +201,16 @@ public class Graph<Label> {
     public String toString() {
         String result = new String("");
         result = result.concat("Nombre sommets : " + cardinal + "\n");
-        result = result.concat("Sommets : \n");
+        result = result.concat("Sommets : \n" + this.getSommets_IHM());
 
-        for (int i = 0; i < this.order(); i++) {
-            if (i < this.order() / 2)
-                result = result.concat(i + 1 + " ");
-            else
-                result = result.concat(i - this.order() + " ");
+        if (false)
+            for (int i = 0; i < this.order(); i++) {
+                if (i < this.order() / 2)
+                    result = result.concat(i + 1 + " ");
+                else
+                    result = result.concat(i - this.order() + " ");
 
-        }
+            }
 
         result = result.concat("\nArcs : \n");
 
