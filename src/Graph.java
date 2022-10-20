@@ -22,33 +22,20 @@ public class Graph<Label> {
         }
 
         public String toString(int cardi) {
-            return convertSommet(cardi)
+            return convertSommet(cardi, this.source)
+                    + " --> "
+                    + convertSommet(cardi, this.destination)
                     + ", Etiquette: "
                     + this.label;
         }
 
         // Pour récupérer les bon numéros de sommet
-        private String convertSommet(int cardi) {
-            String ret = new String("");
-            if (this.source > (cardi / 2)) {
-                System.out.println(this.source + " > " + cardi);
-                ret += Integer.toString(this.source - cardi);
-            } else {
-                System.out.println(this.source + " << " + cardi);
-                ret += Integer.toString(this.source + 1);
-            }
+        private String convertSommet(int cardi, int element) {
+            if (element >= cardi / 2)
+                return Integer.toString(element - cardi);
+            else
+                return Integer.toString(element + 1);
 
-            ret += " --> ";
-
-            if (this.destination > (cardi / 2)) {
-                System.out.println(this.destination + " > " + cardi);
-                ret += Integer.toString(this.destination - cardi);
-            } else {
-                System.out.println(this.destination + " << " + cardi);
-                ret += Integer.toString(this.destination + 1);
-            }
-
-            return ret;
         }
 
         public List<String> toList() {
@@ -140,14 +127,14 @@ public class Graph<Label> {
 
     // Pour gérer les nombres négatifs
     private void addArcControl(int src, int dest, Label label) {
-        System.out.println("c:" + src + "//" + dest);
+        System.out.println("c:" + src + "//" + dest + ", order:" + this.order());
         src--; // Pour avoir un index qui démarre à 0
         dest--; // Pour avoir un index qui démarre à 0
 
         if (src < 0)
-            src += this.order();
+            src += this.order() + 1;
         if (dest < 0)
-            dest += this.order();
+            dest += this.order() + 1;
         try {
             System.out.println("src:" + src + ", dest;" + dest);
             this.addArc(src, dest, label);
@@ -195,7 +182,7 @@ public class Graph<Label> {
 
         for (int i = 0; i < this.order(); i++)
             for (Edge e : incidency.get(i)) {
-                result = result.concat(e.toString(this.order()) + "___");
+                result = result.concat(e.toString(this.order()) + " ");
                 result = result.concat(e.toString() + "\n");
             }
 
