@@ -35,16 +35,19 @@ public class Kosaraju {
         chemin.add(Integer.parseInt(leGraph.getIncidency(0)[0]));
         visite.add(chemin.get(0));
 
+        boolean COMENTAIREP1 = false;
         // Attention, il se stop lors du break dans le catch (NoSuchElementException e)
         while (true)
             try {
-                // System.out.println("---------------");
+                if (COMENTAIREP1)
+                    System.out.println("---------------");
                 // Sommet actuel
                 tmpSommetActuel = chemin.lastElement();
                 // List adj du sommet
                 tmpAdj = leGraph.getAdj(tmpSommetActuel);
 
-                // System.out.println(tmpSommetActuel + ";" + tmpAdj);
+                if (COMENTAIREP1)
+                    System.out.println("Actuel => " + tmpSommetActuel + ";" + tmpAdj + ";" + visite.toString());
                 intIsVisite = -1;
 
                 // Si au moins 1 adjacent
@@ -57,7 +60,8 @@ public class Kosaraju {
                             // Quite le for (normalement)
                             break;
                         }
-                // System.out.println("Aller à " + intIsVisite);
+                if (COMENTAIREP1)
+                    System.out.println("Chemin: " + chemin.toString());
                 // Si Sommet accéssible
                 if (intIsVisite != -1) {
                     // Ajoute l'élément à la pile visité et au chemin
@@ -66,15 +70,26 @@ public class Kosaraju {
                 }
                 // Cas où aucun adj n'est dispo
                 else {
-                    // System.out.println("Dépilage de " + tmpSommetActuel);
+                    if (COMENTAIREP1)
+                        System.out.print("Dépilage " + chemin.toString() + " -> ");
                     // Dépile le chemin et empile dans sortie
                     sortie.add(chemin.pop());
+                    if (COMENTAIREP1)
+                        System.out.println(chemin.toString());
+                    if (COMENTAIREP1)
+                        System.out.println("Sortie: " + sortie.toString());
                 }
 
             } catch (NoSuchElementException e) {
+                boolean isexiste = false;
+                // Récupérer la liste des sommets et voir si ils existent tous dans les visité
+                // SI chemin vide alors vérifier que tt les sommets soient parcourus
+                System.out.println(leGraph.getSommets().toString());
+                // Si plus de sommets accéssible
                 break;// Pour sortir du while
             }
 
+        // Affiche la pile de sortie
         System.out.print("Pile de sortie ");
         for (int i = 0; i < sortie.toArray().length; i++)
             System.out.print(

@@ -66,6 +66,30 @@ public class Graph<Label> {
         return ret.get(n).split(" ");
     }
 
+    public List<Integer> getSommets() {
+        // Contiendra la liste des sommets
+        List<Integer> ret = new ArrayList<>();
+        // Recup tt les arcs
+        List<String> arcs = this.getListArc();
+
+        int[] sommet = { 0, 0 };
+        // Boucle sur les arcs
+        for (String Arcstring : arcs) {
+            // Recup src et dest
+            sommet[0] = Integer.parseInt(Arcstring.split(" ")[0]);
+            sommet[1] = Integer.parseInt(Arcstring.split(" ")[1]);
+
+            // Si src non présent dans ret
+            if (!ret.contains(sommet[0]))
+                ret.add(sommet[0]);
+            // Si des non présent dans ret
+            if (!ret.contains(sommet[1]))
+                ret.add(sommet[1]);
+        }
+
+        return ret;
+    }
+
     // Retourne une liste des sommets accessible par le sommet passé en paramètre
     public List<Integer> getAdj(int sommet) {
         List<Integer> listDest = new ArrayList<Integer>();
@@ -75,7 +99,6 @@ public class Graph<Label> {
             String[] ligne = tout.get(i).split(" ");
             if (Integer.parseInt(ligne[0]) == sommet) {
                 listDest.add(Integer.parseInt(ligne[1]));
-                // System.out.println(">>>"+listDest.toString());
             }
         }
         return listDest;

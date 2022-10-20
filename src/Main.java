@@ -16,6 +16,15 @@ public class Main {
         Graph<String> graph = parser.parse(filename);
         System.out.println(graph);
 
+        if (false)
+            for (int i = 0; i < graph.getListArc().size(); i++) {
+                int s = i;
+                graph.getAdj(s).forEach(t -> System.out
+                        .println(UtilStat.convertSommet(graph.order(), s) + " -> "
+                                + UtilStat.convertSommet(graph.order(), t)));
+
+            }
+
         Kosaraju k = new Kosaraju(graph);
         try {
             int[] composantes = k.sccs();
