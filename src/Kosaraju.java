@@ -137,6 +137,14 @@ public class Kosaraju {
                                 + UtilStat.convertListSommet(trGraph.order(), tmpAdj) + ":"
                                 + UtilStat.convertTableSommet(trGraph.order(), visite.toArray())
                                 + CFC);
+                    System.out.println(
+                            "Sortie:" + UtilStat.convertTableSommet(trGraph.order(), sortie.toArray()) + "\n visite" +
+                                    UtilStat.convertTableSommet(trGraph.order(), visite.toArray()));
+
+                    if (sortie.size() == visite.size()) {
+                        System.out.println("Tout à été parcouru");
+                        break;
+                    }
 
                     visite.add(chemin.get(0));
                     intIsVisite = -1;
@@ -146,10 +154,11 @@ public class Kosaraju {
                         for (int each : tmpAdj)
                             // Si au moins 1 adjacent non visité
                             if (!visite.contains(each)) {
+                                System.out.println("0");
                                 intIsVisite = each;
                                 break;
                             }
-                        System.out.println("1");
+                        System.out.println("1: ?visite" + intIsVisite);
                     }
 
                     // Si Sommet accéssible
@@ -165,13 +174,17 @@ public class Kosaraju {
                         // Si actuel égale source
 
                         System.out.println("3");
-                        if (tmpSommetActuel == elem)
+                        if (tmpSommetActuel == elem) {
+                            System.out.println("3.1");
                             CFC.add((UtilStat.convertTableSommet(trGraph.order(), chemin.toArray())).toString());
+                        }
                         // Si Source accessible même si déjà visité
-                        if ((tmpAdj.contains(elem)))
+                        if ((tmpAdj.contains(elem))) {
+                            System.out.println("3.2");
                             CFC.add((UtilStat.convertTableSommet(trGraph.order(), chemin.toArray())).toString());
-                        else {
-
+                            chemin.pop();
+                        } else {
+                            System.out.println("3.3");
                             System.out.print("\n" +
                                     "Dépile: " + UtilStat.convertSommet(trGraph.order(), chemin.lastElement()) +
                                     "-->");
@@ -184,6 +197,7 @@ public class Kosaraju {
                 }
                 // Si chemin vide
                 catch (NoSuchElementException e) {
+                    System.out.println("4");
                     boolean isExiste = false;
                     // Récupérer la liste des sommets et voir si ils existent tous dans les visité
                     int sommets = 0;
