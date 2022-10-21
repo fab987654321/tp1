@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Kosaraju {
@@ -13,9 +14,6 @@ public class Kosaraju {
      * @throws Exception
      * @throws NumberFormatException
      */
-
-
-
 
     public int[] sccs() throws NumberFormatException, Exception {
 
@@ -38,13 +36,13 @@ public class Kosaraju {
         while (true)
             try {
                 if (COMENTAIREP1)
-                    System.out.println("---------------");
+                    System.out.println("888888888888888");
 
                 // Sommet actuel
                 tmpSommetActuel = chemin.lastElement();
                 // List adj du sommet
                 tmpAdj = leGraph.getAdj(tmpSommetActuel);
-                //Ajoute aux visité
+                // Ajoute aux visité
                 visite.add(chemin.lastElement());
 
                 if (COMENTAIREP1)
@@ -88,7 +86,7 @@ public class Kosaraju {
                 // Récupérer la liste des sommets et voir si ils existent tous dans les visité
                 int sommets = 0;
                 // Si un sommet non parcouru alors recup sa valeur dans sommets
-                for (int i : leGraph.getSommets()){
+                for (int i : leGraph.getSommets()) {
                     if (!visite.contains(i)) {
                         isExiste = true;
                         sommets = i;
@@ -104,8 +102,6 @@ public class Kosaraju {
                 else
                     break;// Pour sortir du while
 
-
-
             }
 
         // Affiche la pile de sortie
@@ -115,48 +111,74 @@ public class Kosaraju {
                     UtilStat.convertSommet(leGraph.order(), Integer.parseInt(sortie.toArray()[i].toString())) + " ");
 
         System.out.println();
-
         // Transposée
         Graph<String> trGraph = leGraph.getTranspose();
 
-
+        visite.clear();
 
         for (int elem : sortie) {
-            //Ne peut pas passer par des éléments déjà ajouté à une bouvcle fortement connexe
-            visite.clear();
+            // Ne peut pas passer par des éléments déjà ajouté à une bouvcle fortement
+            // connexe
+            System.out.println("");
+            System.out.println("***************");
             chemin.clear();
             chemin.add(elem);
             while (true)
                 try {
-                    System.out.println("---------------");
+                    if (false)
+                        System.out.println("++++++++++++++++");
 
                     tmpSommetActuel = chemin.lastElement();
                     tmpAdj = trGraph.getAdj(tmpSommetActuel);
 
-                    System.out.println(UtilStat.convertSommet(trGraph.order(),tmpSommetActuel) + ":"+UtilStat.convertListSommet(trGraph.order(),tmpAdj));
+                    if (false)
+                        System.out.println("\n" + UtilStat.convertSommet(trGraph.order(), elem) + ";"
+                                + UtilStat.convertSommet(trGraph.order(), tmpSommetActuel) + ":"
+                                + UtilStat.convertListSommet(trGraph.order(), tmpAdj) + ":"
+                                + UtilStat.convertTableSommet(trGraph.order(), visite.toArray())
+                                + CFC);
 
                     visite.add(chemin.get(0));
                     intIsVisite = -1;
-
+                    System.out.println(chemin);
                     // Si au moins 1 adjacent
-                    if (tmpAdj.size() > 0)
+                    if (tmpAdj.size() > 0) {
                         for (int each : tmpAdj)
                             // Si au moins 1 adjacent non visité
                             if (!visite.contains(each)) {
                                 intIsVisite = each;
                                 break;
                             }
+                        System.out.println("1");
+                    }
+
                     // Si Sommet accéssible
                     if (intIsVisite != -1) {
+                        System.out.println("\n" +
+                                "Empile" + UtilStat.convertSommet(trGraph.order(), chemin.lastElement()) +
+                                ",-->"
+                                + UtilStat.convertSommet(trGraph.order(), intIsVisite));
                         chemin.add(intIsVisite);
                         visite.add(intIsVisite);
-                    }else {
-                        //Si sommet de départ accessible
-                        if (tmpAdj.contains(elem)){
-                            System.out.println("Chemin connexe trouvé"+ chemin);
-                            CFC.add(chemin.toString());
-                        }
+                        System.out.println("2");
+                    } else {// Si sommet de départ accessible
+                        // Si actuel égale source
+
+                        System.out.println("3");
+                        if (tmpSommetActuel == elem)
+                            CFC.add((UtilStat.convertTableSommet(trGraph.order(), chemin.toArray())).toString());
+                        // Si Source accessible même si déjà visité
+                        if ((tmpAdj.contains(elem)))
+                            CFC.add((UtilStat.convertTableSommet(trGraph.order(), chemin.toArray())).toString());
+                        else {
+
+                            System.out.print("\n" +
+                                    "Dépile: " + UtilStat.convertSommet(trGraph.order(), chemin.lastElement()) +
+                                    "-->");
                             chemin.pop();
+                            System.out.println(" " + UtilStat.convertSommet(trGraph.order(),
+                                    chemin.lastElement()));
+                        }
                     }
 
                 }
@@ -166,7 +188,7 @@ public class Kosaraju {
                     // Récupérer la liste des sommets et voir si ils existent tous dans les visité
                     int sommets = 0;
                     // Si un sommet non parcouru alors recup sa valeur dans sommets
-                    for (int i : leGraph.getSommets()){
+                    for (int i : leGraph.getSommets()) {
                         if (!visite.contains(i)) {
                             isExiste = true;
                             sommets = i;
@@ -176,25 +198,21 @@ public class Kosaraju {
                     // Si existe on le met dans le chemin
                     if (isExiste)
                         chemin.add(sommets);
-                        // Si plus de sommets accéssible
+                    // Si plus de sommets accéssible
                     else
                         break;// Pour sortir du while
 
-
-
                 }
-
         }
-        System.out.println(trGraph.toStringInterne());
-        System.out.print(sortie);
         System.out.println("*****************");
+        System.out.println("*****************");
+
         System.out.println(CFC);
-        System.out.println("*****************");
 
         if (CFC.size() != 0) {
-            System.out.println("Satisfesable"  );
+            System.out.println("Satisfesable");
         } else {
-            System.out.println("Insatisfesable" );
+            System.out.println("Insatisfesable");
         }
 
         return new int[10];
