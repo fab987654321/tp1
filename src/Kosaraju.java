@@ -154,7 +154,7 @@ public class Kosaraju {
                             System.out.println("?visite " + intIsVisite);
                         }
 
-                        // Si Sommet accéssible
+                        // Si sommet non visité accéssible
                         if (intIsVisite != -1) {
                             System.out.println("\n" +
                                     "Empile" + UtilStat.convertSommet(trGraph.order(), chemin.lastElement()) +
@@ -164,19 +164,12 @@ public class Kosaraju {
                             visite.add(intIsVisite);
                             System.out.println("2");
                         } else {
-                            // Si sommet de départ accessible
-                            System.out.println("3");
-                            if (tmp_SommetActuel == elem) {
-                                System.out.println("3.1");
-                                CFC.add((UtilStat.convertTableSommet(trGraph.order(), chemin.toArray())).toString());
-                            }
-                            // Si Source accessible même si déjà visité
-                            if ((tmp_Adj.contains(elem))) {
-                                System.out.println("3.2");
-                                CFC.add((UtilStat.convertTableSommet(trGraph.order(), chemin.toArray())).toString());
+                            // Si Source accessible (même si déjà visité)
+                            if ((tmp_SommetActuel == elem)||(tmp_Adj.contains(elem))) {
+                                CFC.add((UtilStat.convertTableSommet(trGraph.order(), chemin.toArray()))
+                                        .toString());
                                 chemin.pop();
                             } else {
-                                System.out.println("3.3");
                                 System.out.print("\n" +
                                         "Dépile: " + UtilStat.convertSommet(trGraph.order(), chemin.lastElement()) +
                                         "-->");
@@ -184,6 +177,7 @@ public class Kosaraju {
                                 System.out.println(" " + UtilStat.convertSommet(trGraph.order(),
                                         chemin.lastElement()));
                             }
+
                         }
                     }
                     // Si chemin vide
@@ -215,7 +209,7 @@ public class Kosaraju {
 
         System.out.println(CFC);
 
-        if (CFC.size() != 0) {
+        if ((CFC.size() != 0)) {
             System.out.println("Satisfesable");
         } else {
             System.out.println("Insatisfesable");
