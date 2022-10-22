@@ -202,16 +202,6 @@ public class Graph<Label> {
         String result = new String("");
         result = result.concat("Nombre sommets : " + cardinal + "\n");
         result = result.concat("Sommets : \n" + this.getSommets_IHM());
-
-        if (false)
-            for (int i = 0; i < this.order(); i++) {
-                if (i < this.order() / 2)
-                    result = result.concat(i + 1 + " ");
-                else
-                    result = result.concat(i - this.order() + " ");
-
-            }
-
         result = result.concat("\nArcs : \n");
 
         for (int i = 0; i < this.order(); i++)
@@ -225,16 +215,6 @@ public class Graph<Label> {
         String result = new String("");
         result = result.concat("Nombre sommets : " + cardinal + "\n");
         result = result.concat("Sommets : \n" + this.getSommets_IHM());
-
-        if (false)
-            for (int i = 0; i < this.order(); i++) {
-                if (i < this.order() / 2)
-                    result = result.concat(i + 1 + " ");
-                else
-                    result = result.concat(i - this.order() + " ");
-
-            }
-
         result = result.concat("\nArcs : \n");
 
         for (int i = 0; i < this.order(); i++)

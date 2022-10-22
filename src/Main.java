@@ -5,8 +5,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String filename = "formulas/testSet0/formula4.txt";
-        // String filename = "formulas/testSet1/formula4.txt";
+        // String filename = "formulas/testSet0/formula4.txt";
+        String filename = "formulas/testSet1/formula8.txt";
         // String filename = "formulas/formule-2-sat.txt";
         if (0 < args.length) {
             filename = args[0];
