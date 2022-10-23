@@ -4,8 +4,8 @@ import static java.lang.System.exit;
 public class Main {
 
     public static void main(String[] args) {
-        // TODO mettre ton nom de famille
-        System.out.println("Code réalisé par Fabien AUTARD et Bryce");
+        //
+        System.out.println("Code réalisé par Fabien AUTARD et Bryce MANTILARO");
 
         String filename = "formulas/testSet0/formula0.txt"; // non ok S
         // String filename = "formulas/testSet0/formula1.txt";// non ok S
